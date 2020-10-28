@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Editar {{ todo['descripcion'] }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+      <label for="descripcion">Descripcion</label>
+      <input name="descripcion" id="descripcion" value="{{ request.form['descripcion'] or todo['descripcion']}}" required>
+      <label for="completed">Completado</label>
+      <input type="checkbox" name="completed" id="completed" {% if todo['completed'] == 1%}checked{% endif %} />
+      <input type="submit" value="Guardar" />
+  </form>
+  <form action="{{ url_for('todo.delete', id=todo['id']) }}" method="post">
+      <input class="danger" type="submit" value="Elimminar" onClick="return confirm('estas seguro de querer eliminarlo?')" />
+  </form>
+{% endblock %}
